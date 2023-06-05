@@ -1,10 +1,15 @@
 const express = require("express");
 const handlebars = require("express-handlebars");
-const route = require("./routers/index");
+const route = require("./routers");
+const db = require("./config/db");
+const morgan = require("morgan");
 
 const app = express();
 
+app.use(morgan("combined"));
 app.use(express.static("./src/public"));
+
+db.connect();
 
 // template engine
 app.engine("handlebars", handlebars.engine());
